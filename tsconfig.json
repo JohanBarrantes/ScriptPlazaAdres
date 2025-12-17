@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                        // Modern JS para Node 18+
+    "module": "commonjs",                      // Lambda usa CommonJS
+    "outDir": "./dist",                        // Carpeta de salida compilada
+    "rootDir": "./src",                        // Carpeta raíz de tu código fuente
+    "strict": true,                            // Habilita todas las verificaciones estrictas
+    "moduleResolution": "node",                // Resolución de módulos estilo Node.js
+    "esModuleInterop": true,                   // Para compatibilidad import/export
+    "resolveJsonModule": true,                 // Permite importar JSON
+    "skipLibCheck": true,                      // Ignora type check de dependencias
+    "forceConsistentCasingInFileNames": true, // Evita conflictos de mayúsculas/minúsculas
+    "types": ["node", "aws-lambda"],          // Tipos globales para Node y AWS Lambda
+    "ignoreDeprecations": "6.0",              // Silencia aviso de baseUrl deprecated
+    "baseUrl": "./src"                         // Permite imports absolutos desde src
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}

@@ -1,0 +1,22 @@
+name: deploy staging
+on: 
+  push:
+    branches:
+      - st
+
+jobs:
+    deploy:
+        if: github.ref == 'refs/heads/st'
+        name: Deploy to staging
+        uses: jikkosoft/jikko-multi-language-pipeline/.github/workflows/deploy.yml@v0
+        with:
+            environment: 'qa'
+            app_type: 'backend'
+            language: 'node'
+            deploy_target: 'lambda_zip'
+            workdir: '.'
+            lambda_function_name: 'lbda-jikko-qa-start-execution-pdf'
+            lambda_zip_path: 'dist/lambda.zip'
+        secrets:
+            AWS_DEPLOY_ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+            AWS_DEPLOY_REGION: ${{ secrets.AWS_DEPLOY_REGION }}
