@@ -1,11 +1,17 @@
+interface Repository {
+  getCount(tableName: string): Promise<number>; 
+}
+
 class Count {
-  constructor(repository) {
+  private repository: Repository;
+
+  constructor(repository: Repository) {
     this.repository = repository;
   }
 
-  async getCount(tableName) {
+  async getCount(tableName: string): Promise<number> {
     return this.repository.getCount(tableName);
   }
 }
 
-module.exports = Count;
+export default Count;

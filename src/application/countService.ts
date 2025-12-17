@@ -1,13 +1,15 @@
-const Count = require('../domain/count');
+import Count from '../domain/count';
 
 class CountService {
-  constructor(repository) {
+  private count: Count;
+
+  constructor(repository: any) {
     this.count = new Count(repository);
   }
 
-  async execute(tableName) {
+  async execute(tableName: string): Promise<any> {
     return await this.count.getCount(tableName);
   }
 }
 
-module.exports = CountService;
+export default CountService;
