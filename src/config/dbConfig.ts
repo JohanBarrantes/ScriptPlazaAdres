@@ -10,5 +10,4 @@ const pool = new Pool({
     ? { rejectUnauthorized: false }
     : undefined,
 });
-
 export default pool;
