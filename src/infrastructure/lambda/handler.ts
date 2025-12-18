@@ -8,6 +8,7 @@ export const handler = async (
   const tableName = event.queryStringParameters?.tableName || 'mi_tabla';
 
   try {
+    console.log('Iniciando el proceso para obtener el count');
     const repository = new PostgresRepository();
     const service = new CountService(repository);
     const count = await service.execute(tableName);
