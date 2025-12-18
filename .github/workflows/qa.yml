@@ -12,7 +12,7 @@ jobs:
     deploy:
         if: github.ref == 'refs/heads/qa'
         name: Deploy to QA
-        uses: jikkosoft/jikko-multi-language-pipeline/.github/workflows/deploy.yml@v0.0.10
+        uses: jikkosoft/jikko-multi-language-pipeline/.github/workflows/deploy.yml@v0.0.12
         with:
             environment: qa
             app_type: 'backend'
