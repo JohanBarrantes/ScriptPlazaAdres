@@ -12,5 +12,4 @@ class CountService {
   }
 }
 
-
 export default CountService;
