@@ -1,0 +1,10 @@
+{
+"vars": {
+    "PG_HOST": "db-silin-staging.jikkosoft.local",
+    "PG_PORT": 5432,
+    "PG_DATABASE": "silin-staging",
+    "PG_USER": "fredi.florez"
+},
+"secrets": {
+}
+}
