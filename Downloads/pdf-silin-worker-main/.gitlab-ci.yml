@@ -1,0 +1,4 @@
+include:
+  - project: "silin-project/cicd/backend/silin"
+    ref: "main"
+    file: ".gitlab-ci.yml"

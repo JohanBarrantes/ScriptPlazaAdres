@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+
+#python3 /app/manage.py collectstatic --noinput
+supervisord
+#tail -f /dev/null
+
+PROJECT_INTERNAL_PORT=8888
+export PYTHONPATH='/app'
+export LC_ALL='en_US.utf8'
+cd $PYTHONPATH
+gunicorn config.wsgi --timeout 300 --bind 0.0.0.0:$PROJECT_INTERNAL_PORT

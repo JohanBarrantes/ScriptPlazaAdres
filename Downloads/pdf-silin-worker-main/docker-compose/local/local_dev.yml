@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+
+  redis_db:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  django_pdf: &django
+    hostname: template-converter
+    build:
+      context: ../../
+      dockerfile: "./init/local/django/Dockerfile"
+    depends_on:
+      - redis_db
+    image: converter_local_django_dev
+    volumes:
+      - ../../:/app
+    env_file: ../../.env
+    environment:
+      - |
+        PUBLIC_RSA=
+        -----BEGIN PUBLIC KEY-----
+        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4ryo8attlwQFjnO4El+8+yfKY
+        ZYEVjISEZvGbFLqvX1t9Ft65kr9ATWfs0/p8CAdEw5b8i5eR/iLGAXnvk1ux+c8e
+        zUmhweConcLYK4BNpJwAB+NxFfDBl9wapgLKG1J46X4eZ0GErAl4ib2+caNz31y/
+        d5eixX/ydrCe4pJYwQIDAQAB
+        -----END PUBLIC KEY-----
+    ports:
+      - "8001:8001"
+      - "2002:2002"
+    command: /start
+
+networks:
+  default:
+    name: template-converter
