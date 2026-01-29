@@ -1,0 +1,5 @@
+python-dotenv
+pandas
+camelot-py[cv]
+sqlalchemy
+psycopg2-binary

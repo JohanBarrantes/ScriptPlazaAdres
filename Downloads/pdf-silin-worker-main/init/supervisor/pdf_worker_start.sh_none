@@ -1,6 +1,0 @@
-#!/bin/bash
-PROJECT_INTERNAL_PORT=8888
-export PYTHONPATH='/app'
-export LC_ALL='en_US.utf8'
-cd $PYTHONPATH
-gunicorn config.wsgi --bind 0.0.0.0:$PROJECT_INTERNAL_PORT

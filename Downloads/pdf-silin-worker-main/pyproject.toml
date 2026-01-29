@@ -1,4 +1,0 @@
-[tool.isort]
-profile = "black"
-line_length = 160
-known_first_party = "pdf-silin-worker"
