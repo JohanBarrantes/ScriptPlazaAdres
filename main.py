@@ -76,10 +76,7 @@ def process_pdf(pdf_path: str) -> tuple:
         quarter = (month - 1) // 3 + 1 
         for index, table in enumerate(tables):
             df = table.df
-
             df.columns = [to_snake_case(col) for col in df.iloc[0]]
-
-            print(f"XXXXXXX '{df.columns}'")
             df = df[1:]
             df.reset_index(drop=True, inplace=True)
             df = df.dropna(how='all')
@@ -106,18 +103,10 @@ def process_pdf(pdf_path: str) -> tuple:
     return (tables_inserted, rows_inserted)
 
 def to_snake_case(column_name):
-    # Asegurarse de que el nombre de la columna sea una cadena
     column_name = str(column_name)
-    
-    # Eliminar tildes (acentos) usando unicodedata
     column_name = unicodedata.normalize('NFKD', column_name).encode('ascii', 'ignore').decode('utf-8')
-    
-    # Reemplazar saltos de línea y espacios por guiones bajos
     column_name = re.sub(r'[\n\s]+', '_', column_name)
-    
-    # Reemplazar caracteres no alfanuméricos ni guiones bajos
     column_name = re.sub(r'[^a-z0-9_]', '', column_name.lower())
-    
     return column_name
 
 if __name__ == "__main__":
