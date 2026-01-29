@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 import os
 import camelot
 import pandas as pd
+import re
+import unicodedata
 from sqlalchemy import create_engine
 from datetime import datetime 
 
@@ -75,15 +77,18 @@ def process_pdf(pdf_path: str) -> tuple:
         for index, table in enumerate(tables):
             df = table.df
 
-            df.columns = df.iloc[0]
+            df.columns = [to_snake_case(col) for col in df.iloc[0]]
+
+            print(f"XXXXXXX '{df.columns}'")
             df = df[1:]
             df.reset_index(drop=True, inplace=True)
             df = df.dropna(how='all')
             df = df[df.notna().any(axis=1)]
             df = df.apply(lambda col: col.str.replace('\n', ' ') if col.dtype == "object" else col)
 
-            df['Año'] = year
-            df['Trimestre'] = quarter
+            df['año'] = year
+            df['trimestre'] = quarter
+            df['activo'] = 1
             all_tables_df = pd.concat([all_tables_df, df], ignore_index=True)
             
         if not all_tables_df.empty:
@@ -99,6 +104,21 @@ def process_pdf(pdf_path: str) -> tuple:
         print(error)
 
     return (tables_inserted, rows_inserted)
+
+def to_snake_case(column_name):
+    # Asegurarse de que el nombre de la columna sea una cadena
+    column_name = str(column_name)
+    
+    # Eliminar tildes (acentos) usando unicodedata
+    column_name = unicodedata.normalize('NFKD', column_name).encode('ascii', 'ignore').decode('utf-8')
+    
+    # Reemplazar saltos de línea y espacios por guiones bajos
+    column_name = re.sub(r'[\n\s]+', '_', column_name)
+    
+    # Reemplazar caracteres no alfanuméricos ni guiones bajos
+    column_name = re.sub(r'[^a-z0-9_]', '', column_name.lower())
+    
+    return column_name
 
 if __name__ == "__main__":
     main()
